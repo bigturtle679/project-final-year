@@ -1,9 +1,7 @@
 # Simple Reflex Vacuum Cleaner Agent
 
 def vacuum_agent(location, status):
-    """
-    Condition-Action Rules
-    """
+
     if status == "Dirty":
         return "Suck"
     elif location == "Left":
@@ -11,11 +9,8 @@ def vacuum_agent(location, status):
     else:
         return "Left"
 
-
 def display_environment(left_room, right_room, vacuum_location):
-    """
-    Display current environment state
-    """
+
     left = f"[{left_room}]"
     right = f"[{right_room}]"
 
@@ -26,11 +21,7 @@ def display_environment(left_room, right_room, vacuum_location):
 
     print(f"{left}  {right}")
 
-
 def run_vacuum_world(left_room, right_room, start_location, steps=10):
-    """
-    Simulates the Vacuum Cleaner World
-    """
 
     location = start_location
 
@@ -39,7 +30,6 @@ def run_vacuum_world(left_room, right_room, start_location, steps=10):
 
     for step in range(1, steps + 1):
 
-        # Current percept
         if location == "Left":
             status = left_room
         else:
@@ -47,14 +37,12 @@ def run_vacuum_world(left_room, right_room, start_location, steps=10):
 
         percept = (location, status)
 
-        # Agent chooses action
         action = vacuum_agent(location, status)
 
         print(f"\nStep {step}")
         print("Percept:", percept)
         print("Action :", action)
 
-        # Execute action
         if action == "Suck":
             if location == "Left":
                 left_room = "Clean"
@@ -69,17 +57,9 @@ def run_vacuum_world(left_room, right_room, start_location, steps=10):
 
         display_environment(left_room, right_room, location)
 
-        # Goal test
         if left_room == "Clean" and right_room == "Clean":
             print("\n✔ Goal Achieved: Both rooms are clean!")
             break
-
-
-# -----------------------------
-# PERCEPT SEQUENCE 1
-# Initial State:
-# [Vacuum, Dirty] [Dirty]
-# -----------------------------
 
 print("===== PERCEPT SEQUENCE 1 =====")
 
@@ -88,13 +68,6 @@ run_vacuum_world(
     right_room="Dirty",
     start_location="Left"
 )
-
-
-# -----------------------------
-# PERCEPT SEQUENCE 2
-# Initial State:
-# [Dirty] [Vacuum, Dirty]
-# -----------------------------
 
 print("\n\n===== PERCEPT SEQUENCE 2 =====")
 
